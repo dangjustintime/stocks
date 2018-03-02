@@ -1,4 +1,4 @@
-#ifdef PORTFOLIO_H
+#ifndef PORTFOLIO_H
 #define PORTFOLIO_H
 
 #include "stock.h"
@@ -15,11 +15,12 @@ class Portfolio {
 			numYears{numYears} { stockVector(); };
 		Portfolio(Portfolio& portfolio) :
 			numStocks{portfolio.getNumStocks()}, stockValue{portfolio.getStockValue()}, cashValue{portfolio.getCashValue()},
-				for(int i = 0; <= portfolio.stockVector.size(); i++) {
-					/*
-					add portfolio stocks to vector stocks
-					*/	
+				stockVector();
+				for(int i = 0; < portfolio.stockVector.size(); i++) {
+					stockVector.push_back(portfolio.stockVector[i]);
 				}
+				numStocks = stockVector.size();
+				kljakljfdlaldskaja
 			};
 
 		//getters and setters	
