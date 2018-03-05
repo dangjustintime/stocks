@@ -18,9 +18,7 @@ class Stock {
 		
 		//constructors
 		//default constructor
-		Stock(); 
-		//constructor with parameters
-		Stock(std::string name = "----",
+		explicit Stock(std::string name = "----",
 			double price = 0.0,
 			double dailyRate = 0.0,
 			double weeklyRate = 0.0,
@@ -37,6 +35,9 @@ class Stock {
 		Stock& operator=(const Stock&);
 		//assignment operator (move version)
 		Stock& operator=(Stock&&);
+
+		//print
+		void print() const;
 
 		//getters and setters
 		std::string getName() const;
@@ -72,25 +73,15 @@ class Stock {
 //operators
 std::ostream& operator<<(std::ostream& os, const Stock& stock) {
 	std::fixed;
-	os << "Name: " << stock.name << std::endl;
-	os << "Price: " << std::setprecision(2) << stock.price << std::endl;
-	os << "Daily Rate: " << std::setprecision(2) << stock.dailyRate << std::endl;
-	os << "Weekly Rate: " << std::setprecision(2) << stock.weeklyRate << std::endl;
-	os << "Monthly Rate: " << std::setprecision(2) << stock.monthlyRate << std::endl;
-	os << "Three Month Rate: " << std::setprecision(2) << stock.threeMonthRate << std::endl;
-	os << "Yearly Rate: " << std::setprecision(2) << stock.yearlyRate << std::endl;
-	os << "General Rate: " << std::setprecision(2) << stock.generalRate << std::endl;
-	os << "Dividend: " << std::setprecision(2) << stock.dividend << std::endl;
+	os << "Name: " << stock.name;
+	os << "\tPrice: $" << std::setprecision(2) << stock.price;
+	os << "\tGeneral Rate: " << std::setprecision(2) << "%" << stock.generalRate;
+	os << "\t\tDividend: " << std::setprecision(2) << stock.dividend << "%" << std::endl;
 	return os;
 };
 
 //constructors
 //default constructor
-Stock::Stock() : name{"----"}, price{0.0}, dailyRate{0.0},
-	weeklyRate{0.0}, monthlyRate{0.0}, threeMonthRate{0.0},
-	yearlyRate{0.0}, generalRate{0.0},dividend{0.0} {};
-
-//constructor with parameters
 Stock::Stock(std::string name, double price, double dailyRate,
 	double weeklyRate, double monthlyRate, double threeMonthRate,
 	double yearlyRate, double wholeRate, double dividend) :
@@ -135,6 +126,20 @@ Stock& Stock::operator=(Stock&& stock){
 	generalRate = std::move(stock.generalRate);
 	return *this;
 };
+
+//print
+void Stock::print() const {
+	std::fixed;
+	std::cout << "Name: " << name << std::endl;
+	std::cout << "Price: $" << std::setprecision(2) << price << std::endl;
+	std::cout << "Daily Rate: " << std::setprecision(2) << dailyRate << "%" << std::endl;
+	std::cout << "Weekly Rate: " << std::setprecision(2) << weeklyRate << "%" << std::endl;
+	std::cout << "Monthly Rate: " << std::setprecision(2) << monthlyRate << "%" << std::endl;
+	std::cout << "Three Month Rate: " << std::setprecision(2) << threeMonthRate << "%" << std::endl;
+	std::cout << "Yearly Rate: " << std::setprecision(2) << yearlyRate << "%" << std::endl;
+	std::cout << "General Rate: " << std::setprecision(2) << generalRate << "%" << std::endl;
+	std::cout << "Dividend: " << std::setprecision(2) << dividend << "%" << std::endl;	
+}
 
 //getters and setters
 std::string Stock::getName() const { return name; };
