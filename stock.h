@@ -72,10 +72,9 @@ class Stock {
 //definitions
 //operators
 std::ostream& operator<<(std::ostream& os, const Stock& stock) {
-	std::fixed;
 	os << "Name: " << stock.name;
-	os << "\tPrice: $" << std::setprecision(2) << stock.price;
-	os << "\tGeneral Rate: " << std::setprecision(2) << "%" << stock.generalRate;
+	os << "\tPrice: $" << std::fixed << std::setprecision(2) << stock.price;
+	os << "\tGeneral Rate: " << std::setprecision(2) << stock.generalRate << "%";
 	os << "\t\tDividend: " << std::setprecision(2) << stock.dividend << "%" << std::endl;
 	return os;
 };
@@ -99,7 +98,18 @@ Stock::Stock(const Stock& stock) :
 Stock::Stock(Stock&& stock) :
 	name{std::move(stock.name)}, price{std::move(stock.price)}, dailyRate{std::move(stock.dailyRate)},
 	weeklyRate{std::move(stock.weeklyRate)}, monthlyRate{std::move(stock.monthlyRate)}, threeMonthRate{std::move(stock.threeMonthRate)},
-	yearlyRate{std::move(stock.yearlyRate)}, generalRate{std::move(stock.generalRate)}, dividend{std::move(stock.dividend)} {};
+	yearlyRate{std::move(stock.yearlyRate)}, generalRate{std::move(stock.generalRate)}, dividend{std::move(stock.dividend)} {
+	stock.name = "----";
+	stock.price = 0.0;
+	stock.dailyRate = 0.0;
+	stock.weeklyRate = 0.0;
+	stock.monthlyRate = 0.0;
+	stock.threeMonthRate = 0.0;
+	stock.yearlyRate = 0.0;
+	stock.generalRate = 0.0;
+	stock.dividend = 0.0;
+
+};
 
 //assignment operator
 Stock& Stock::operator=(const Stock& stock) {
@@ -129,8 +139,7 @@ Stock& Stock::operator=(Stock&& stock){
 
 //print
 void Stock::print() const {
-	std::fixed;
-	std::cout << "Name: " << name << std::endl;
+	std::cout << "Name: " << name << std::endl << std::fixed;
 	std::cout << "Price: $" << std::setprecision(2) << price << std::endl;
 	std::cout << "Daily Rate: " << std::setprecision(2) << dailyRate << "%" << std::endl;
 	std::cout << "Weekly Rate: " << std::setprecision(2) << weeklyRate << "%" << std::endl;
