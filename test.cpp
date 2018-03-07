@@ -26,11 +26,54 @@ int main() {
 	d.print();
 	
 	//assignment operator
-
+          Stock e("KO", 43.50, 0.09, -0.84, -6.75, -6.03, 7.05, 29.66);
+          e.print();
+          Stock f = e;
+          std::cout << "STOCK F" << std::endl;
+          f.print();
 
 	//assignment operator (move version)
+          b = std::move(e);
+          std::cout << "STOCK B" << std::endl;
+          b.print();
+          std::cout << "STOCK E" << std::endl;
+          e.print();
 
 	//getters and setters
+	std::cout << "\n\n\n\n--------GETTERS--------" << std::endl;
+          b.print();
+          std::cout << "getName() = " << b.getName() << std::endl;
+          std::cout << "getPrice() = " << b.getPrice() << std::endl;
+          std::cout << "getDailyRate() = " << b.getDailyRate() << std::endl;
+          std::cout << "getWeeklyRate() = " << b.getWeeklyRate() << std::endl;
+          std::cout << "getMonthlyRate() = " << b.getMonthlyRate() << std::endl;
+          std::cout << "getThreeMonthRate() = " << b.getThreeMonthRate() << std::endl;
+          std::cout << "getYearlyRate() = " << b.getYearlyRate() << std::endl;
+          std::cout << "getDividend() = " << b.getDividend() << std::endl;
+          
+          
+	std::cout << "\n\n\n\n--------SETTERS--------" << std::endl;
+          b.setName("TWTR");
+          b.setPrice(33.62);
+          b.setDailyRate(-0.43);
+          b.setWeeklyRate(6.73);
+          b.setMonthlyRate(32.52);
+          b.setThreeMonthRate(59.64);
+          b.setYearlyRate(116.62);
+          b.setGeneralRate(-25.45);
+          b.setDividend(99.99);
 
+
+          std::cout << "getName() = " << b.getName() << std::endl;
+          std::cout << "getPrice() = " << b.getPrice() << std::endl;
+          std::cout << "getDailyRate() = " << b.getDailyRate() << std::endl;
+          std::cout << "getWeeklyRate() = " << b.getWeeklyRate() << std::endl;
+          std::cout << "getMonthlyRate() = " << b.getMonthlyRate() << std::endl;
+          std::cout << "getThreeMonthRate() = " << b.getThreeMonthRate() << std::endl;
+          std::cout << "getYearlyRate() = " << b.getYearlyRate() << std::endl;
+          std::cout << "getDividend() = " << b.getDividend() << std::endl;
+          
+	return 0;
+          
 	return 0;
 }

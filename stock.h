@@ -56,6 +56,8 @@ class Stock {
 		void setYearlyRate(double);
 		double getGeneralRate() const;
 		void setGeneralRate(double);
+		double getDividend() const;
+		void setDividend(double);
 
 	private:
 		std::string name;
@@ -151,21 +153,59 @@ void Stock::print() const {
 }
 
 //getters and setters
-std::string Stock::getName() const { return name; };
-void Stock::setName(std::string) { this->name = name; };
-double Stock::getPrice() const { return price; };
-void Stock::setPrice(double) { this->price = price; };		
-double Stock::getDailyRate() const {return dailyRate; };
-void Stock::setDailyRate(double) { this->price = price; };
-double Stock::getWeeklyRate() const { return weeklyRate; };
-void Stock::setWeeklyRate(double) { this->weeklyRate = weeklyRate; };
-double Stock::getMonthlyRate() const { return monthlyRate; };
-void Stock::setMonthlyRate(double) { this->monthlyRate = monthlyRate; };
-double Stock::getThreeMonthRate() const { return threeMonthRate; };
-void Stock::setThreeMonthRate(double) { this->threeMonthRate; };
-double Stock::getYearlyRate() const { return yearlyRate; };
-void Stock::setYearlyRate(double) { this->yearlyRate; };
-double Stock::getGeneralRate() const { return generalRate; };
-void Stock::setGeneralRate(double) { this->generalRate = generalRate; };
+std::string Stock::getName() const { 
+        return name;
+};
+void Stock::setName(std::string name) {
+        this->name = name;
+};
+double Stock::getPrice() const {
+        return price;
+};
+void Stock::setPrice(double price) {
+        this->price = price;
+};		
+double Stock::getDailyRate() const {
+        return dailyRate;
+};
+void Stock::setDailyRate(double dailyRate) {
+        this->dailyRate = dailyRate;
+};
+double Stock::getWeeklyRate() const {
+        return weeklyRate;
+};
+void Stock::setWeeklyRate(double weeklyRate) {
+        this->weeklyRate = weeklyRate;
+};
+double Stock::getMonthlyRate() const {
+        return monthlyRate;
+};
+void Stock::setMonthlyRate(double monthlyRate) {
+        this->monthlyRate = monthlyRate;
+};
+double Stock::getThreeMonthRate() const {
+        return threeMonthRate;
+};
+void Stock::setThreeMonthRate(double threeMonthRate) {
+        this->threeMonthRate = threeMonthRate;
+};
+double Stock::getYearlyRate() const {
+        return yearlyRate;
+};
+void Stock::setYearlyRate(double yearlyRate) {
+        this->yearlyRate = yearlyRate;
+};
+double Stock::getGeneralRate() const {
+        return generalRate;
+};
+void Stock::setGeneralRate(double generalRate) {
+        this->generalRate = generalRate;
+};
+double Stock::getDividend() const {
+        return dividend;
+};
+void Stock::setDividend(double dividend) {
+        this->dividend = dividend;
+};
 
 #endif
