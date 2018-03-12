@@ -25,7 +25,7 @@ class Portfolio {
 
 		//getters and setters	
 		int getNumStocks();
-		double getValue();
+		double getTotalValue();
 		double getStockValue();
 		double getCashValue();
 		void setCashValue(double);
@@ -35,7 +35,6 @@ class Portfolio {
 	private:
                     std::map<std::string, Stock> stockMap;
 		int numStocks;
-		double totalValue = stockValue + cashValue;
 		double stockValue;
 		double cashValue;
 		int numYears;
@@ -90,9 +89,19 @@ Portfolio& Portfolio::operator=(Portfolio&& portfolio) {
           cashValue = std::move(portfolio.cashValue);
           numYears = std::move(portfolio.numYears);
           stockMap = std::move(portfolio.stockMap);
+          portfolio.numStocks = 0;
+          portfolio.stockValue = 0.0;
+          portfolio.cashValue = 0.0;
+          portfolio.numYears = 0;
+          portfolio.stockMap.clear();  
           return *this;
 }
 
 //getters and setters
+int Portfolio::getNumStocks() { return numStocks; };
+double Portfolio::getTotalValue() { return stockValue + cashValue; };
+double Portfolio::getStockValue() { return stockValue; };
+double Portfolio::getCashValue() { return cashValue; };
+void Portfolio::setCashValue(double cashValue) { this->cashValue = cashValue; }
 
 #endif
