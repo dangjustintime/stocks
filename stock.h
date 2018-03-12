@@ -159,6 +159,15 @@ Stock& Stock::operator=(Stock&& stock){
 	threeMonthRate = std::move(stock.threeMonthRate);
 	yearlyRate = std::move(stock.yearlyRate);
 	generalRate = std::move(stock.generalRate);
+	stock.name = "----";
+	stock.price = 0.0;
+	stock.dailyRate = 0.0;
+	stock.weeklyRate = 0.0;
+	stock.monthlyRate = 0.0;
+	stock.threeMonthRate = 0.0;
+	stock.yearlyRate = 0.0;
+	stock.generalRate = 0.0;
+	stock.dividend = 0.0;
 	return *this;
 };
 
