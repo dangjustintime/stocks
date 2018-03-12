@@ -30,6 +30,10 @@ class Portfolio {
 		double getCashValue();
 		void setCashValue(double);
 
+                    //add/remove cash
+                    void addCash(const double&);
+                    void removeCash(const double&);
+
                     //add/remove stocks
                     void addStock(const Stock&);
                     void addStock(Stock&&);
@@ -110,6 +114,12 @@ double Portfolio::getStockValue() { return stockValue; };
 double Portfolio::getCashValue() { return cashValue; };
 void Portfolio::setCashValue(double cashValue) { this->cashValue = cashValue; }
 
+//add cash
+void Portfolio::addCash(const double& cash) { cashValue+=cash; };
+
+//remove cash
+void Portfolio::removeCash(const double& cash) { cashValue-=cash;  };
+
 //add stock (copy version)
 void Portfolio::addStock(const Stock& stock) {
           stockMap.insert(std::pair<std::string, Stock>(stock.getName(), stock));
@@ -132,11 +142,28 @@ void Portfolio::addStock(Stock&& stock) {
 	stock.setDividend(0.0);
           
 }
+
 //remove stock
 void Portfolio::removeStock(const std::string& key) {
         numStocks--;
         stockValue-= stockMap[key].getPrice();
         stockMap.erase(key);
+}
+
+//buy stock
+void Portfolio::buyStock(const Stock& stock) {
+          if(cashValue >= stock.getPrice()) {
+                    cashValue-= stock.getPrice();
+                    addStock(stock);
+          } else {
+                    std::cout << "*****INSUFFICIENT FUNDS IN PORTFOLIO*****" << std::endl;
+          }
+}
+
+//sell stock
+void Portfolio::sellStock(const std::string& key) {
+          cashValue+= stockMap[key].getPrice();
+          removeStock(key);
 }
 
 #endif
