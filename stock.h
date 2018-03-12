@@ -83,35 +83,58 @@ std::ostream& operator<<(std::ostream& os, const Stock& stock) {
 
 //constructors
 //default constructor
-Stock::Stock(std::string name, double price, double dailyRate,
-	double weeklyRate, double monthlyRate, double threeMonthRate,
-	double yearlyRate, double wholeRate, double dividend) :
-	name{name}, price{price}, dailyRate{dailyRate}, weeklyRate{weeklyRate},
-	monthlyRate{monthlyRate}, threeMonthRate{threeMonthRate}, yearlyRate{yearlyRate},
-	generalRate{wholeRate}, dividend{dividend} {};
+Stock::Stock(std::string name,
+          double price,
+          double dailyRate,
+	double weeklyRate,
+          double monthlyRate,
+          double threeMonthRate,
+	double yearlyRate,
+          double wholeRate,
+          double dividend) :
+	          name{name},
+                    price{price},
+                    dailyRate{dailyRate},
+                    weeklyRate{weeklyRate},
+	          monthlyRate{monthlyRate},
+                    threeMonthRate{threeMonthRate},
+                    yearlyRate{yearlyRate},
+	          generalRate{wholeRate},
+                    dividend{dividend} {};
 
 //copy constructor
 Stock::Stock(const Stock& stock) :
-	name{stock.name}, price{stock.price}, dailyRate{stock.dailyRate},
-	weeklyRate{stock.weeklyRate}, monthlyRate{stock.monthlyRate}, threeMonthRate{stock.threeMonthRate},
-	yearlyRate{stock.yearlyRate}, generalRate{stock.generalRate}, dividend{stock.dividend} {};
+	name{stock.name},
+          price{stock.price},
+          dailyRate{stock.dailyRate},
+	weeklyRate{stock.weeklyRate},
+          monthlyRate{stock.monthlyRate},
+          threeMonthRate{stock.threeMonthRate},
+	yearlyRate{stock.yearlyRate},
+          generalRate{stock.generalRate},
+          dividend{stock.dividend} {};
 
 //move constructor
 Stock::Stock(Stock&& stock) :
-	name{std::move(stock.name)}, price{std::move(stock.price)}, dailyRate{std::move(stock.dailyRate)},
-	weeklyRate{std::move(stock.weeklyRate)}, monthlyRate{std::move(stock.monthlyRate)}, threeMonthRate{std::move(stock.threeMonthRate)},
-	yearlyRate{std::move(stock.yearlyRate)}, generalRate{std::move(stock.generalRate)}, dividend{std::move(stock.dividend)} {
-	stock.name = "----";
-	stock.price = 0.0;
-	stock.dailyRate = 0.0;
-	stock.weeklyRate = 0.0;
-	stock.monthlyRate = 0.0;
-	stock.threeMonthRate = 0.0;
-	stock.yearlyRate = 0.0;
-	stock.generalRate = 0.0;
-	stock.dividend = 0.0;
-
-};
+	name{std::move(stock.name)},
+          price{std::move(stock.price)},
+          dailyRate{std::move(stock.dailyRate)},
+	weeklyRate{std::move(stock.weeklyRate)},
+          monthlyRate{std::move(stock.monthlyRate)},
+          threeMonthRate{std::move(stock.threeMonthRate)},
+	yearlyRate{std::move(stock.yearlyRate)},
+          generalRate{std::move(stock.generalRate)},
+          dividend{std::move(stock.dividend)} {
+	          stock.name = "----";
+	          stock.price = 0.0;
+	          stock.dailyRate = 0.0;
+	          stock.weeklyRate = 0.0;
+	          stock.monthlyRate = 0.0;
+	          stock.threeMonthRate = 0.0;
+	          stock.yearlyRate = 0.0;
+	          stock.generalRate = 0.0;
+	          stock.dividend = 0.0;
+          };
 
 //assignment operator
 Stock& Stock::operator=(const Stock& stock) {
@@ -153,59 +176,23 @@ void Stock::print() const {
 }
 
 //getters and setters
-std::string Stock::getName() const { 
-        return name;
-};
-void Stock::setName(std::string name) {
-        this->name = name;
-};
-double Stock::getPrice() const {
-        return price;
-};
-void Stock::setPrice(double price) {
-        this->price = price;
-};		
-double Stock::getDailyRate() const {
-        return dailyRate;
-};
-void Stock::setDailyRate(double dailyRate) {
-        this->dailyRate = dailyRate;
-};
-double Stock::getWeeklyRate() const {
-        return weeklyRate;
-};
-void Stock::setWeeklyRate(double weeklyRate) {
-        this->weeklyRate = weeklyRate;
-};
-double Stock::getMonthlyRate() const {
-        return monthlyRate;
-};
-void Stock::setMonthlyRate(double monthlyRate) {
-        this->monthlyRate = monthlyRate;
-};
-double Stock::getThreeMonthRate() const {
-        return threeMonthRate;
-};
-void Stock::setThreeMonthRate(double threeMonthRate) {
-        this->threeMonthRate = threeMonthRate;
-};
-double Stock::getYearlyRate() const {
-        return yearlyRate;
-};
-void Stock::setYearlyRate(double yearlyRate) {
-        this->yearlyRate = yearlyRate;
-};
-double Stock::getGeneralRate() const {
-        return generalRate;
-};
-void Stock::setGeneralRate(double generalRate) {
-        this->generalRate = generalRate;
-};
-double Stock::getDividend() const {
-        return dividend;
-};
-void Stock::setDividend(double dividend) {
-        this->dividend = dividend;
-};
+std::string Stock::getName() const {  return name; };
+void Stock::setName(std::string name) { this->name = name; };
+double Stock::getPrice() const { return price; };
+void Stock::setPrice(double price) { this->price = price; };		
+double Stock::getDailyRate() const { return dailyRate; };
+void Stock::setDailyRate(double dailyRate) { this->dailyRate = dailyRate; };
+double Stock::getWeeklyRate() const { return weeklyRate; };
+void Stock::setWeeklyRate(double weeklyRate) { this->weeklyRate = weeklyRate; };
+double Stock::getMonthlyRate() const { return monthlyRate; };
+void Stock::setMonthlyRate(double monthlyRate) { this->monthlyRate = monthlyRate; };
+double Stock::getThreeMonthRate() const { return threeMonthRate; };
+void Stock::setThreeMonthRate(double threeMonthRate) { this->threeMonthRate = threeMonthRate; };
+double Stock::getYearlyRate() const { return yearlyRate; };
+void Stock::setYearlyRate(double yearlyRate) { this->yearlyRate = yearlyRate; };
+double Stock::getGeneralRate() const { return generalRate; };
+void Stock::setGeneralRate(double generalRate) { this->generalRate = generalRate; };
+double Stock::getDividend() const { return dividend; };
+void Stock::setDividend(double dividend) { this->dividend = dividend; };
 
 #endif

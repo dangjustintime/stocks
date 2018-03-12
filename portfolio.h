@@ -2,26 +2,20 @@
 #define PORTFOLIO_H
 
 #include "stock.h"
-#include <vector>
+#include <map>
 
 class Portfolio {
 	public:
 		//operators
 		
 		//constructors
-		Portfolio() : numStocks{0}, stockValue{0.0}, cashValue{0.0}, numYears{0} { stockVector(); };
-		Portfolio(double numStocks = 0, double stockValue = 0.0, double cashValue = 0.0, int numYears 0) :
-			numStocks{numStocks}, stockValue{stockValue}, cashValue{cashValue},
-			numYears{numYears} { stockVector(); };
-		Portfolio(Portfolio& portfolio) :
-			numStocks{portfolio.getNumStocks()}, stockValue{portfolio.getStockValue()}, cashValue{portfolio.getCashValue()},
-				stockVector();
-				for(int i = 0; < portfolio.stockVector.size(); i++) {
-					stockVector.push_back(portfolio.stockVector[i]);
-				}
-				numStocks = stockVector.size();
-				kljakljfdlaldskaja
-			};
+	          //default constructor	
+                    explicit Portfolio(int numStocks = 0.0,
+                                    double stockValue = 0.0,
+                                    double cashValue = 0.0,
+                                    int numYears = 0);
+                    //copy constructor
+                    Portfolio(const Portfolio&);
 
 		//getters and setters	
 		int getNumStocks();
@@ -29,21 +23,38 @@ class Portfolio {
 		double getStockValue();
 		double getCashValue();
 		void setCashValue(double);
-		
+
+                    void addStock();
+                    void removeStock();
 	private:
-		Vector <Stock> stockVector;
+                    std::map<std::string, Stock> stockMap;
 		int numStocks;
-		double value = stockValue + cashValue;
+		double totalValue = stockValue + cashValue;
 		double stockValue;
 		double cashValue;
 		int numYears;
-}
+};
 
 //defintions
 //operators
 
 //constructors
-
+//default constructor
+Portfolio::Portfolio(int numStocks,
+          double stockValue,
+          double cashValue,
+          int numYears) :
+	          numStocks{numStocks},
+                    stockValue{stockValue},
+                    cashValue{cashValue},
+	          numYears{numYears} {};
+//copy constructor
+Portfolio::Portfolio(const Portfolio& portfolio) :
+        numStocks{portfolio.numStocks},
+        stockValue{portfolio.stockValue},
+        cashValue{portfolio.cashValue},
+        numYears{portfolio.numYears},
+        stockMap{portfolio.stockMap} {}
 //getters and setters
 
 #endif
