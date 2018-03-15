@@ -77,14 +77,6 @@ class Stock {
 
 //definitions
 //operators
-std::ostream& operator<<(std::ostream& os, const Stock& stock) {
-	os << "Name: " << stock.name;
-          os << "\tNumber of shares: " << stock.numShares;
-	os << "\tPrice: $" << std::fixed << std::setprecision(2) << stock.price;
-	os << "\tGeneral Rate: " << std::setprecision(2) << stock.generalRate << "%";
-	os << "\t\tDividend: " << std::setprecision(2) << stock.dividend << "%" << std::endl;
-	return os;
-};
 
 //constructors
 //default constructor
@@ -186,8 +178,9 @@ Stock& Stock::operator=(Stock&& stock){
 
 //print
 void Stock::print() const {
-	std::cout << "Name: " << name << std::endl << std::fixed;
+	std::cout << "----------" << name << "----------" << std::endl;
           std::cout << "Number of shares: " << numShares << std::endl;
+          std::cout << std::fixed;
 	std::cout << "Price: $" << std::setprecision(2) << price << std::endl;
 	std::cout << "Daily Rate: " << std::setprecision(2) << dailyRate << "%" << std::endl;
 	std::cout << "Weekly Rate: " << std::setprecision(2) << weeklyRate << "%" << std::endl;
@@ -195,7 +188,7 @@ void Stock::print() const {
 	std::cout << "Three Month Rate: " << std::setprecision(2) << threeMonthRate << "%" << std::endl;
 	std::cout << "Yearly Rate: " << std::setprecision(2) << yearlyRate << "%" << std::endl;
 	std::cout << "General Rate: " << std::setprecision(2) << generalRate << "%" << std::endl;
-	std::cout << "Dividend: " << std::setprecision(2) << dividend << "%" << std::endl;	
+	std::cout << "Dividend: " << std::setprecision(2) << dividend << "%" << std::endl << std::endl;	
 }
 
 //getters and setters

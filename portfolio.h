@@ -42,6 +42,9 @@ class Portfolio {
                     //buy/sell stocks
                     void buyStock(const Stock&);
                     void sellStock(const Stock&);
+
+                    //print
+                    void print();
 	private:
                     std::map<std::string, Stock> stockMap;
 		int numStocks;
@@ -124,13 +127,13 @@ void Portfolio::removeCash(const double& cash) { cashValue-=cash;  };
 void Portfolio::addStock(const Stock& stock) {
           stockMap.insert(std::pair<std::string, Stock>(stock.getName(), stock));
           numStocks++;
-          stockValue+=stock.getPrice();
+          stockValue+=stock.getPrice() * stock.getNumShares();
 }
 //add stock (move version)
 void Portfolio::addStock(Stock&& stock) {
           stockMap.insert(std::pair<std::string, Stock>(stock.getName(), std::move(stock)));
           numStocks++;
-          stockValue+=stock.getPrice();
+          stockValue+=stock.getPrice() * stock.getNumShares();
 	stock.setName("----");
 	stock.setPrice(0.0);
 	stock.setDailyRate(0.0);
@@ -145,14 +148,14 @@ void Portfolio::addStock(Stock&& stock) {
 //remove stock
 void Portfolio::removeStock(const Stock& stock) {
         numStocks--;
-        stockValue-= stockMap[stock.getName()].getPrice();
+        stockValue-= stock.getPrice() * stock.getNumShares();
         stockMap.erase(stock.getName());
 }
 
 //buy stock
 void Portfolio::buyStock(const Stock& stock) {
-          if(cashValue >= stock.getPrice()) {
-                    cashValue-= stock.getPrice();
+          if(cashValue >= stock.getPrice() * stock.getNumShares()) {
+                    cashValue-= stock.getPrice() * stock.getNumShares();
                     if(stockMap.find(stock.getName()) != stockMap.end()) {
                               addStock(stock);
                     } else {
@@ -166,8 +169,19 @@ void Portfolio::buyStock(const Stock& stock) {
 
 //sell stock
 void Portfolio::sellStock(const Stock& stock) {
-          cashValue+= stockMap[stock.getName()].getPrice();
+          cashValue+= stockMap[stock.getName()].getPrice() * stock.getNumShares();
           removeStock(stock);
+}
+
+//print
+void Portfolio::print() {
+          std::cout << "\n---------------Portfolio---------------" << std::endl;
+          std::cout << "Number of Stocks: " << numStocks << "\t\tNumber of years: " << numYears << std::endl;
+          std::cout << "Stock Value: " << stockValue << "\t\tCash Value: " << cashValue << std::endl << std::endl;
+          for(auto i = stockMap.begin(); i != stockMap.end(); i++) {
+                    i->second.print();
+          }
+          std::cout << std::endl;
 }
 
 #endif
