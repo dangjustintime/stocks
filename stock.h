@@ -61,6 +61,7 @@ class Stock {
 		void setGeneralRate(double);
 		double getDividend() const;
 		void setDividend(double);
+                    double getTotalValue() const;
 
 	private:
 		std::string name;
@@ -104,7 +105,7 @@ Stock::Stock(std::string name,
 //copy constructor
 Stock::Stock(const Stock& stock) :
 	name{stock.name},
-          numShares{numShares},
+          numShares{stock.numShares},
           price{stock.price},
           dailyRate{stock.dailyRate},
 	weeklyRate{stock.weeklyRate},
@@ -149,6 +150,7 @@ Stock& Stock::operator=(const Stock& stock) {
 	threeMonthRate = stock.threeMonthRate;
 	yearlyRate = stock.yearlyRate;
 	generalRate = stock.generalRate;
+          dividend = stock.dividend;
 	return *this;
 };
 
@@ -163,6 +165,7 @@ Stock& Stock::operator=(Stock&& stock){
 	threeMonthRate = std::move(stock.threeMonthRate);
 	yearlyRate = std::move(stock.yearlyRate);
 	generalRate = std::move(stock.generalRate);
+          dividend = std::move(stock.dividend);
 	stock.name = "----";
           stock.numShares = 0;
 	stock.price = 0.0;
@@ -212,5 +215,6 @@ double Stock::getGeneralRate() const { return generalRate; };
 void Stock::setGeneralRate(double generalRate) { this->generalRate = generalRate; };
 double Stock::getDividend() const { return dividend; };
 void Stock::setDividend(double dividend) { this->dividend = dividend; };
+double Stock::getTotalValue() const { return price * numShares; };
 
 #endif
