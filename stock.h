@@ -182,6 +182,7 @@ Stock& Stock::operator=(Stock&& stock){
 //print
 void Stock::print() const {
 	std::cout << "----------" << name << "----------" << std::endl;
+          std::cout << "Total Value: $" << getTotalValue() << std::endl;
           std::cout << "Number of shares: " << numShares << std::endl;
           std::cout << std::fixed;
 	std::cout << "Price: $" << std::setprecision(2) << price << std::endl;
