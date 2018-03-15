@@ -37,11 +37,11 @@ class Portfolio {
                     //add/remove stocks
                     void addStock(const Stock&);
                     void addStock(Stock&&);
-                    void removeStock(const std::string&);
+                    void removeStock(const Stock&);
 
                     //buy/sell stocks
                     void buyStock(const Stock&);
-                    void sellStock(const std::string&);
+                    void sellStock(const Stock&);
 	private:
                     std::map<std::string, Stock> stockMap;
 		int numStocks;
@@ -139,31 +139,35 @@ void Portfolio::addStock(Stock&& stock) {
 	stock.setThreeMonthRate(0.0);
 	stock.setYearlyRate(0.0);
 	stock.setGeneralRate(0.0);
-	stock.setDividend(0.0);
-          
+	stock.setDividend(0.0);          
 }
 
 //remove stock
-void Portfolio::removeStock(const std::string& key) {
+void Portfolio::removeStock(const Stock& stock) {
         numStocks--;
-        stockValue-= stockMap[key].getPrice();
-        stockMap.erase(key);
+        stockValue-= stockMap[stock.getName()].getPrice();
+        stockMap.erase(stock.getName());
 }
 
 //buy stock
 void Portfolio::buyStock(const Stock& stock) {
           if(cashValue >= stock.getPrice()) {
                     cashValue-= stock.getPrice();
-                    addStock(stock);
+                    if(stockMap.find(stock.getName()) != stockMap.end()) {
+                              addStock(stock);
+                    } else {
+                              removeStock(stock);
+                              addStock(stock);
+                    }
           } else {
                     std::cout << "*****INSUFFICIENT FUNDS IN PORTFOLIO*****" << std::endl;
           }
 }
 
 //sell stock
-void Portfolio::sellStock(const std::string& key) {
-          cashValue+= stockMap[key].getPrice();
-          removeStock(key);
+void Portfolio::sellStock(const Stock& stock) {
+          cashValue+= stockMap[stock.getName()].getPrice();
+          removeStock(stock);
 }
 
 #endif

@@ -44,7 +44,7 @@ class Stock {
 		std::string getName() const;
 		void setName(std::string);
                     int getNumShares() const;
-                    void setNumShares();
+                    void setNumShares(int);
 		double getPrice() const;
 		void setPrice(double);		
 		double getDailyRate() const;
@@ -202,7 +202,7 @@ void Stock::print() const {
 std::string Stock::getName() const {  return name; };
 void Stock::setName(std::string name) { this->name = name; };
 int Stock::getNumShares() const { return numShares; };
-void Stock::setNumShares() { this->numShares = numShares; };
+void Stock::setNumShares(int numShares) { this->numShares = numShares; };
 double Stock::getPrice() const { return price; };
 void Stock::setPrice(double price) { this->price = price; };		
 double Stock::getDailyRate() const { return dailyRate; };
