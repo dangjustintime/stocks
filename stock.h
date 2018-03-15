@@ -19,6 +19,7 @@ class Stock {
 		//constructors
 		//default constructor
 		explicit Stock(std::string name = "----",
+                              int numShares = 0,
 			double price = 0.0,
 			double dailyRate = 0.0,
 			double weeklyRate = 0.0,
@@ -42,6 +43,8 @@ class Stock {
 		//getters and setters
 		std::string getName() const;
 		void setName(std::string);
+                    int getNumShares() const;
+                    void setNumShares();
 		double getPrice() const;
 		void setPrice(double);		
 		double getDailyRate() const;
@@ -61,6 +64,7 @@ class Stock {
 
 	private:
 		std::string name;
+                    int numShares;
 		double price;
 		double dailyRate;
 		double weeklyRate;
@@ -75,6 +79,7 @@ class Stock {
 //operators
 std::ostream& operator<<(std::ostream& os, const Stock& stock) {
 	os << "Name: " << stock.name;
+          os << "\tNumber of shares: " << stock.numShares;
 	os << "\tPrice: $" << std::fixed << std::setprecision(2) << stock.price;
 	os << "\tGeneral Rate: " << std::setprecision(2) << stock.generalRate << "%";
 	os << "\t\tDividend: " << std::setprecision(2) << stock.dividend << "%" << std::endl;
@@ -84,6 +89,7 @@ std::ostream& operator<<(std::ostream& os, const Stock& stock) {
 //constructors
 //default constructor
 Stock::Stock(std::string name,
+          int numShares,
           double price,
           double dailyRate,
 	double weeklyRate,
@@ -93,6 +99,7 @@ Stock::Stock(std::string name,
           double wholeRate,
           double dividend) :
 	          name{name},
+                    numShares{numShares},
                     price{price},
                     dailyRate{dailyRate},
                     weeklyRate{weeklyRate},
@@ -105,6 +112,7 @@ Stock::Stock(std::string name,
 //copy constructor
 Stock::Stock(const Stock& stock) :
 	name{stock.name},
+          numShares{numShares},
           price{stock.price},
           dailyRate{stock.dailyRate},
 	weeklyRate{stock.weeklyRate},
@@ -117,6 +125,7 @@ Stock::Stock(const Stock& stock) :
 //move constructor
 Stock::Stock(Stock&& stock) :
 	name{std::move(stock.name)},
+          numShares{std::move(stock.numShares)},
           price{std::move(stock.price)},
           dailyRate{std::move(stock.dailyRate)},
 	weeklyRate{std::move(stock.weeklyRate)},
@@ -126,6 +135,7 @@ Stock::Stock(Stock&& stock) :
           generalRate{std::move(stock.generalRate)},
           dividend{std::move(stock.dividend)} {
 	          stock.name = "----";
+                    stock.numShares = 0;
 	          stock.price = 0.0;
 	          stock.dailyRate = 0.0;
 	          stock.weeklyRate = 0.0;
@@ -139,6 +149,7 @@ Stock::Stock(Stock&& stock) :
 //assignment operator
 Stock& Stock::operator=(const Stock& stock) {
 	name = stock.name;
+          numShares = stock.numShares;
 	price = stock.price;
 	dailyRate = stock.dailyRate;
 	weeklyRate = stock.weeklyRate;
@@ -152,6 +163,7 @@ Stock& Stock::operator=(const Stock& stock) {
 //assignment operator (move version)
 Stock& Stock::operator=(Stock&& stock){
 	name = std::move(stock.name);
+          numShares = std::move(stock.numShares);
 	price = std::move(stock.price);
 	dailyRate = std::move(stock.dailyRate);
 	weeklyRate = std::move(stock.weeklyRate);
@@ -160,6 +172,7 @@ Stock& Stock::operator=(Stock&& stock){
 	yearlyRate = std::move(stock.yearlyRate);
 	generalRate = std::move(stock.generalRate);
 	stock.name = "----";
+          stock.numShares = 0;
 	stock.price = 0.0;
 	stock.dailyRate = 0.0;
 	stock.weeklyRate = 0.0;
@@ -174,6 +187,7 @@ Stock& Stock::operator=(Stock&& stock){
 //print
 void Stock::print() const {
 	std::cout << "Name: " << name << std::endl << std::fixed;
+          std::cout << "Number of shares: " << numShares << std::endl;
 	std::cout << "Price: $" << std::setprecision(2) << price << std::endl;
 	std::cout << "Daily Rate: " << std::setprecision(2) << dailyRate << "%" << std::endl;
 	std::cout << "Weekly Rate: " << std::setprecision(2) << weeklyRate << "%" << std::endl;
@@ -187,6 +201,8 @@ void Stock::print() const {
 //getters and setters
 std::string Stock::getName() const {  return name; };
 void Stock::setName(std::string name) { this->name = name; };
+int Stock::getNumShares() const { return numShares; };
+void Stock::setNumShares() { this->numShares = numShares; };
 double Stock::getPrice() const { return price; };
 void Stock::setPrice(double price) { this->price = price; };		
 double Stock::getDailyRate() const { return dailyRate; };
