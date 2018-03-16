@@ -20,6 +20,14 @@ int main() {
           Stock f("BAC", 5, 32.24, 0.31, 0.16, 4.26, 11.94, 30.1, 177.56, 6.6);
           Stock g("DIS", 10, 103.99, 0.09, 0.00, 1.32, -7.14, -6.07, 94.89, 1.2);
          
+          a.print();
+          a++;
+          a.print();
+          b = a++;
+          a.print();
+          b.print();
+
+          /*
           Portfolio p0;
           p0.addStock(a);
           p0.addStock(b);
@@ -30,6 +38,6 @@ int main() {
 
           p0.buyStock(a);
           p0.print();
-
+          */
           return 0;
 }
