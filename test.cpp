@@ -1,7 +1,6 @@
 //        Alpha Vantage API KEY = 9CDYVVKCZIM1S15W
 /*
  *        TODO:
- *                  -fixed buyStock and sellStock in portfolio.h
  *                  -test all member functions in portfolio class
 */
 
@@ -19,24 +18,16 @@ int main() {
           Stock e("FB", 2, 184.01, 1.27, 0.28, 4.78, 2.79, 32.11, 597.8, 5.3);
           Stock f("BAC", 5, 32.24, 0.31, 0.16, 4.26, 11.94, 30.1, 177.56, 6.6);
           Stock g("DIS", 10, 103.99, 0.09, 0.00, 1.32, -7.14, -6.07, 94.89, 1.2);
-        
-          a.print();
-          a+=3;
-          a.print();
-          a-=2;
-          a.print();
-
-          /* 
-          Portfolio p0;
-          p0.addStock(a);
-          p0.addStock(b);
-          p0.addStock(c);
-          p0.addStock(d);
-          p0.setCashValue(600);
-          p0.print();
-
-          p0.buyStock(a);
-          p0.print();
-          */
+          Stock h("TWTR", 5, 36.77, 0.51, 2.75, 12.98, 63.17, 134.97, -21.32, 6.4);
+       
+          Portfolio p;
+          p.print();
+          p.addCash(500);
+          p.buyStock(a);
+          p.buyStock(a); 
+          p.buyStock(a);
+          p.print();
+          p.sellStock(f);
+          p.print();
           return 0;
 }

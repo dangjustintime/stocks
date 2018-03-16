@@ -10,9 +10,7 @@ class Portfolio {
 		
 		//constructors
 	          //default constructor	
-                    explicit Portfolio(double stockValue = 0.0,
-                                    double cashValue = 0.0,
-                                    int numYears = 0);
+                    explicit Portfolio(double cashValue = 0.0, int numYears = 0);
                     //copy constructor
                     Portfolio(const Portfolio&);
                     //move constructor
@@ -35,17 +33,16 @@ class Portfolio {
                     //add/remove stocks
                     void addStock(const Stock&);
                     void addStock(Stock&&);
-                    void removeStock(const std::string&);
+                    void removeStock(const Stock&);
 
                     //buy/sell stocks
                     void buyStock(const Stock&);
-                    void sellStock(const std::string&, int numShares = 1);
+                    void sellStock(const Stock&);
 
                     //print
                     void print();
 	private:
                     std::map<std::string, Stock> stockMap;
-		double stockValue;
 		double cashValue;
 		int numYears;
 };
@@ -55,32 +52,25 @@ class Portfolio {
 
 //constructors
 //default constructor
-Portfolio::Portfolio(double stockValue,
-          double cashValue,
-          int numYears) :
-                    stockValue{stockValue},
-                    cashValue{cashValue},
-	          numYears{numYears} {};
+Portfolio::Portfolio(double cashValue, int numYears) :
+          cashValue{cashValue},
+	numYears{numYears} {};
 //copy constructor
 Portfolio::Portfolio(const Portfolio& portfolio) :
-        stockValue{portfolio.stockValue},
         cashValue{portfolio.cashValue},
         numYears{portfolio.numYears},
         stockMap{portfolio.stockMap} {}
 //move constructor
 Portfolio::Portfolio(Portfolio && portfolio) :
-        stockValue{std::move(portfolio.stockValue)},
         cashValue{std::move(portfolio.cashValue)},
         numYears{std::move(portfolio.numYears)},
         stockMap{std::move(portfolio.stockMap)} {
-                portfolio.stockValue = 0.0;
                 portfolio.cashValue = 0.0;
                 portfolio.numYears = 0;
                 portfolio.stockMap.clear();
         }
 //assignment operator
 Portfolio& Portfolio::operator=(const Portfolio& portfolio) {
-          stockValue = portfolio.stockValue;
           cashValue = portfolio.cashValue;
           numYears = portfolio.numYears;
           stockMap = portfolio.stockMap;
@@ -88,11 +78,9 @@ Portfolio& Portfolio::operator=(const Portfolio& portfolio) {
 }
 //assignment operator (move version)
 Portfolio& Portfolio::operator=(Portfolio&& portfolio) {
-          stockValue = std::move(portfolio.stockValue);
           cashValue = std::move(portfolio.cashValue);
           numYears = std::move(portfolio.numYears);
           stockMap = std::move(portfolio.stockMap);
-          portfolio.stockValue = 0.0;
           portfolio.cashValue = 0.0;
           portfolio.numYears = 0;
           portfolio.stockMap.clear();  
@@ -100,8 +88,14 @@ Portfolio& Portfolio::operator=(Portfolio&& portfolio) {
 }
 
 //getters and setters
-double Portfolio::getTotalValue() { return stockValue + cashValue; };
-double Portfolio::getStockValue() { return stockValue; };
+double Portfolio::getTotalValue() { return getStockValue() + cashValue; };
+double Portfolio::getStockValue() { 
+          double stockValue = 0.0;
+          for(auto i = stockMap.begin(); i != stockMap.end(); i++) {
+                    stockValue+=i->second.getTotalValue();
+          }
+          return stockValue;
+};
 double Portfolio::getCashValue() { return cashValue; };
 void Portfolio::setCashValue(double cashValue) { this->cashValue = cashValue; }
 
@@ -113,14 +107,22 @@ void Portfolio::removeCash(const double& cash) { cashValue-=cash;  };
 
 //add stock (copy version)
 void Portfolio::addStock(const Stock& stock) {
-          stockMap.insert(std::pair<std::string, Stock>(stock.getName(), stock));
-          stockValue+=stock.getTotalValue();
+          if(stockMap.find(stock.getName()) == stockMap.end()) {
+                    stockMap.insert(std::pair<std::string, Stock>(stock.getName(), stock));
+          } else {
+                    stockMap[stock.getName()]+=stock.getNumShares();
+          }
 }
 //add stock (move version)
 void Portfolio::addStock(Stock&& stock) {
-          stockMap.insert(std::pair<std::string, Stock>(stock.getName(), std::move(stock)));
-          stockValue+=stock.getTotalValue();
-	stock.setName("----");
+          if(stockMap.find(stock.getName()) == stockMap.end()) {
+                    stockMap.insert(std::pair<std::string, Stock>(stock.getName(), std::move(stock)));
+          } else {
+                    stockMap[stock.getName()]+=stock.getNumShares();
+          }
+
+          stock.setName("----");
+          stock.setNumShares(0);
 	stock.setPrice(0.0);
 	stock.setDailyRate(0.0);
 	stock.setWeeklyRate(0.0);
@@ -132,47 +134,49 @@ void Portfolio::addStock(Stock&& stock) {
 }
 
 //remove stock
-void Portfolio::removeStock(const std::string& key) {
-        stockValue-= stockMap[key].getTotalValue();
-        stockMap.erase(key);
+void Portfolio::removeStock(const Stock& stock) {
+        if(stockMap.find(stock.getName()) != stockMap.end()) {
+                if(stockMap[stock.getName()].getNumShares() > stock.getNumShares()) {
+                        stockMap[stock.getName()]-= stock.getNumShares();
+                } else if (stockMap[stock.getName()].getNumShares() == stock.getNumShares()) {
+                        stockMap.erase(stock.getName());
+                } else {
+                        std::cout << "*****NOT ENOUGH SHARES*****" << std::endl;
+                } 
+        } else {
+                        std::cout << "*****STOCK NOT FOUND*****" << std::endl;
+        }
 }
 
 //buy stock
 void Portfolio::buyStock(const Stock& stock) {
           if(cashValue >= stock.getTotalValue()) {
                     cashValue-= stock.getTotalValue();
-                    if(stockMap.find(stock.getName()) != stockMap.end()) {
-                              addStock(stock);
-                    } else {
-                              removeStock(stock.getName());
-                              addStock(stock);  
-                    }
+                    addStock(stock);
           } else {
                     std::cout << "*****INSUFFICIENT FUNDS IN PORTFOLIO*****" << std::endl;
           }
 }
 
 //sell stock
-void Portfolio::sellStock(const std::string& key, int numShares) {
-          if(stockMap.find(key) != stockMap.end() && stockMap[key].getNumShares() >= numShares) {
-                    cashValue+= stockMap[key].getPrice() * numShares;
-                    if(numShares == 1) {
-                              removeStock(key);
-                    } else {
-                              stockMap[key].setNumShares(stockMap[key].getNumShares() - numShares);
-                    }
-          } else if(stockMap.find(key) == stockMap.end()){
-                    std::cout << "*****STOCK NOT FOUND*****" << std::endl;
-          } else if(stockMap[key].getNumShares() < numShares) {
-                    std::cout << "*****NOT ENOUGH SHARES*****" << std::endl;
-          }
+void Portfolio::sellStock(const Stock& stock) {
+        if(stockMap.find(stock.getName()) != stockMap.end()) {
+                if(stockMap[stock.getName()].getNumShares() >= stock.getNumShares()) {
+                        cashValue+=stock.getTotalValue();
+                        removeStock(stock);
+                } else {
+                        std::cout << "*****NOT ENOUGH SHARES*****" << std::endl;
+                }
+        } else {
+                std::cout << "*****STOCK NOT FOUND*****" << std::endl;
+        }
 }
 
 //print
 void Portfolio::print() {
           std::cout << "\n---------------Portfolio---------------" << std::endl;
           std::cout << "Number of Holdings: " << stockMap.size() << "\t\tNumber of years: " << numYears << std::endl;
-          std::cout << "Stock Value: " << stockValue << "\t\tCash Value: " << cashValue << std::endl << std::endl;
+          std::cout << "Stock Value: " << getStockValue() << "\t\tCash Value: " << cashValue << std::endl << std::endl;
           for(auto i = stockMap.begin(); i != stockMap.end(); i++) {
                     i->second.print();
           }
