@@ -14,7 +14,9 @@ class Stock {
                     //preincrement
                     Stock operator++(int);
                     Stock operator--(int);
-
+                    
+                    Stock& operator+=(int);
+                    Stock& operator-=(int);
                     friend void operator--(const Stock&);
 		friend std::ostream& operator<<(std::ostream&, const Stock&);
 		friend bool operator==(const Stock&, const Stock&);
@@ -105,6 +107,15 @@ Stock Stock::operator--(int) {
           Stock oldStock(*this);
           numShares--;
           return oldStock;
+}
+Stock& Stock::operator+=(int numShares) {
+          this->numShares+=numShares;
+          return *this; 
+}
+Stock& Stock::operator-=(int numShares) {
+          this->numShares-=numShares;
+          return *this; 
+          
 }
 
 //constructors
