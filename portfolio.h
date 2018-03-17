@@ -175,8 +175,9 @@ void Portfolio::sellStock(const Stock& stock) {
 //print
 void Portfolio::print() {
           std::cout << "\n---------------Portfolio---------------" << std::endl;
+          std::cout << "Total Value: $" << getTotalValue() << std::endl;
           std::cout << "Number of Holdings: " << stockMap.size() << "\t\tNumber of years: " << numYears << std::endl;
-          std::cout << "Stock Value: " << getStockValue() << "\t\tCash Value: " << cashValue << std::endl << std::endl;
+          std::cout << "Stock Value: $" << getStockValue() << "\t\tCash Value: $" << cashValue << std::endl << std::endl;
           for(auto i = stockMap.begin(); i != stockMap.end(); i++) {
                     i->second.print();
           }

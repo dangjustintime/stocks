@@ -1,8 +1,4 @@
 //        Alpha Vantage API KEY = 9CDYVVKCZIM1S15W
-/*
- *        TODO:
- *                  -test all member functions in portfolio class
-*/
 
 #include "stock.h"
 #include "portfolio.h"
@@ -20,12 +16,22 @@ int main() {
           Stock g("DIS", 10, 103.99, 0.09, 0.00, 1.32, -7.14, -6.07, 94.89, 1.2);
           Stock h("TWTR", 5, 36.77, 0.51, 2.75, 12.98, 63.17, 134.97, -21.32, 6.4);
       
-          
-          a.print();
-          a*=4;
-          a.print();
-          a/=2;
-          a.print();
+          Portfolio p;
+          p.print();
+          p.addStock(a);
+          p.addStock(b);
+          p.addStock(c);
+          p.addStock(d);
+          p.addCash(600);
+          p.print();
+          p.removeCash(250);
+          p.print();
+          std::cout << p.getCashValue() << std::endl;
+          std::cout << p.getTotalValue() << std::endl;
+          std::cout << p.getStockValue() << std::endl;
+          p.setCashValue(8000);
+          p.print();
+
 
           return 0;
 }
