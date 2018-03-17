@@ -19,31 +19,43 @@ class Stock {
       return *this;
     };
     // preincrement
-    Stock Stock::operator++(int) {
+    Stock operator++(int) {
       Stock oldStock(*this);
       num_shares++;
       return oldStock;
     }
-    Stock Stock::operator--(int) {
+    Stock operator--(int) {
       Stock oldStock(*this);
-      num_shares--;
+      if (this->num_shares > 1) {
+        num_shares--;
+      } else {
+      	std::cerr << "*****NOT ENOUGH SHARES*****" << std::endl;
+      }
       return oldStock;
     }
     // compound assginment
-    Stock& Stock::operator+=(int num_shares) {
+    Stock& operator+=(int num_shares) {
       this->num_shares+=num_shares;
       return *this; 
     }
-    Stock& Stock::operator-=(int num_shares) {
-      this->num_shares-=num_shares;
+    Stock& operator-=(int num_shares) {
+      if (this->num_shares > num_shares) {
+        this->num_shares-=num_shares;
+      } else {
+      	std::cerr << "*****NOT ENOUGH SHARES*****" << std::endl;
+      }
       return *this; 
     }
-    Stock& Stock::operator*=(int num_shares) {
+    Stock& operator*=(int num_shares) {
       this->num_shares*=num_shares;
       return *this;
     }
-    Stock& Stock::operator/=(int num_shares) {
-      this->num_shares/=num_shares;
+    Stock& operator/=(int num_shares) {
+      if (this->num_shares / num_shares > 1) {
+        this->num_shares/=num_shares;
+      } else {
+      	std::cerr << "*****NOT ENOUGH SHARES*****" << std::endl;
+      }
       return *this;
     }
 
@@ -72,25 +84,25 @@ class Stock {
     void print() const;
 
     // getters and setters
-    std::string name() const {  return name; };
+    std::string get_name() const {  return name; };
     void set_name(std::string name) { this->name = name; };
-    int num_shares() const { return num_shares; };
+    int get_num_shares() const { return num_shares; };
     void set_num_shares(int num_shares) { this->num_shares = num_shares; };
-    double price() const { return price; };
+    double get_price() const { return price; };
     void set_price(double price) { this->price = price; };		
-    double daily_rate() const { return daily_rate; };
+    double get_daily_rate() const { return daily_rate; };
     void set_daily_rate(double daily_rate) { this->daily_rate = daily_rate; };
-    double weekly_rate() const { return weekly_rate; };
+    double get_weekly_rate() const { return weekly_rate; };
     void set_weekly_rate(double weekly_rate) { this->weekly_rate = weekly_rate; };
-    double monthly_rate() const { return monthly_rate; };
+    double get_monthly_rate() const { return monthly_rate; };
     void set_monthly_rate(double monthly_rate) { this->monthly_rate = monthly_rate; };
-    double three_month_rate() const { return three_month_rate; };
+    double get_three_month_rate() const { return three_month_rate; };
     void set_three_month_rate(double three_month_rate) { this->three_month_rate = three_month_rate; };
-    double yearly_rate() const { return yearly_rate; };
+    double get_yearly_rate() const { return yearly_rate; };
     void set_yearly_rate(double yearly_rate) { this->yearly_rate = yearly_rate; };
-    double general_rate() const { return general_rate; };
+    double get_general_rate() const { return general_rate; };
     void set_general_rate(double general_rate) { this->general_rate = general_rate; };
-    double dividend() const { return dividend; };
+    double get_dividend() const { return dividend; };
     void set_dividend(double dividend) { this->dividend = dividend; };
     double get_total_value() const { return price * num_shares; };
   
@@ -208,18 +220,18 @@ Stock& Stock::operator=(Stock&& stock){
 
 // print
 void Stock::print() const {
-  std::cout << "----------" << name << "----------" << std::endl;
+  std::cout << "----------" << get_name() << "----------" << std::endl;
   std::cout << "Total Value: $" << get_total_value() << std::endl;
-  std::cout << "Number of shares: " << num_shares << std::endl;
+  std::cout << "Number of shares: " << get_num_shares() << std::endl;
   std::cout << std::fixed;
-  std::cout << "Price: $" << std::setprecision(2) << price << std::endl;
-  std::cout << "Daily Rate: " << std::setprecision(2) << daily_rate << "%" << std::endl;
-  std::cout << "Weekly Rate: " << std::setprecision(2) << weekly_rate << "%" << std::endl;
-  std::cout << "Monthly Rate: " << std::setprecision(2) << monthly_rate << "%" << std::endl;
-  std::cout << "Three Month Rate: " << std::setprecision(2) << three_month_rate << "%" << std::endl;
-  std::cout << "Yearly Rate: " << std::setprecision(2) << yearly_rate << "%" << std::endl;
-  std::cout << "General Rate: " << std::setprecision(2) << general_rate << "%" << std::endl;
-  std::cout << "Dividend: " << std::setprecision(2) << dividend << "%" << std::endl << std::endl;	
+  std::cout << "Price: $" << std::setprecision(2) << get_price() << std::endl;
+  std::cout << "Daily Rate: " << std::setprecision(2) << get_daily_rate() << "%" << std::endl;
+  std::cout << "Weekly Rate: " << std::setprecision(2) << get_weekly_rate() << "%" << std::endl;
+  std::cout << "Monthly Rate: " << std::setprecision(2) << get_monthly_rate() << "%" << std::endl;
+  std::cout << "Three Month Rate: " << std::setprecision(2) << get_three_month_rate() << "%" << std::endl;
+  std::cout << "Yearly Rate: " << std::setprecision(2) << get_yearly_rate() << "%" << std::endl;
+  std::cout << "General Rate: " << std::setprecision(2) << get_general_rate() << "%" << std::endl;
+  std::cout << "Dividend: " << std::setprecision(2) << get_dividend() << "%" << std::endl << std::endl;	
 }
 }
 

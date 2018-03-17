@@ -1,37 +1,17 @@
 //        Alpha Vantage API KEY = 9CDYVVKCZIM1S15W
 
 #include "stock.h"
-#include "portfolio.h"
-#include <iostream>
+//#include "portfolio.h"
 #include <cctype>
 #include <vector>
 
+using namespace stocks;
+
 int main() {
-          Stock a("TWTR", 1, 36.77, 0.51, 2.75, 12.98, 63.17, 134.97, -21.32, 6.4);
-          Stock b("MSFT", 3, 93.85, -0.59, -0.43, 6.03, 10.59, 48.48, 283.08, 1.1);
-          Stock c("AAPL", 1, 178.57, -0.85, 1.69, 10.26, 3.26, 30.12, 212.54, 7.0);
-          Stock d("NFLX", 6, 321.66, 1.79, -0.17, 25.02, 69.64, 123.07, 1141.38, 8.2);
-          Stock e("FB", 2, 184.01, 1.27, 0.28, 4.78, 2.79, 32.11, 597.8, 5.3);
-          Stock f("BAC", 5, 32.24, 0.31, 0.16, 4.26, 11.94, 30.1, 177.56, 6.6);
-          Stock g("DIS", 10, 103.99, 0.09, 0.00, 1.32, -7.14, -6.07, 94.89, 1.2);
-          Stock h("TWTR", 5, 36.77, 0.51, 2.75, 12.98, 63.17, 134.97, -21.32, 6.4);
-      
-          Portfolio p;
-          p.print();
-          p.addStock(a);
-          p.addStock(b);
-          p.addStock(c);
-          p.addStock(d);
-          p.addCash(600);
-          p.print();
-          p.removeCash(250);
-          p.print();
-          std::cout << p.getCashValue() << std::endl;
-          std::cout << p.getTotalValue() << std::endl;
-          std::cout << p.getStockValue() << std::endl;
-          p.setCashValue(8000);
-          p.print();
-
-
-          return 0;
+	Stock a("TWTR", 9, 36.77, 0.51, 2.75, 12.98, 63.17, 134.97, -21.32, 6.4);
+	a.print();
+	Stock b = --a;
+	a.print();
+	b.print();
+	return 0;
 }
