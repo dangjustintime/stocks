@@ -19,15 +19,13 @@ int main() {
           Stock f("BAC", 5, 32.24, 0.31, 0.16, 4.26, 11.94, 30.1, 177.56, 6.6);
           Stock g("DIS", 10, 103.99, 0.09, 0.00, 1.32, -7.14, -6.07, 94.89, 1.2);
           Stock h("TWTR", 5, 36.77, 0.51, 2.75, 12.98, 63.17, 134.97, -21.32, 6.4);
-       
-          Portfolio p;
-          p.print();
-          p.addCash(500);
-          p.buyStock(a);
-          p.buyStock(a); 
-          p.buyStock(a);
-          p.print();
-          p.sellStock(f);
-          p.print();
+      
+          
+          a.print();
+          a*=4;
+          a.print();
+          a/=2;
+          a.print();
+
           return 0;
 }
