@@ -9,7 +9,6 @@ namespace stocks {
 class Stock {
   public:
     // operators
-    // postincrement
     Stock& operator++() {
       num_shares++;
       return *this;
@@ -18,7 +17,6 @@ class Stock {
       num_shares--;
       return *this;
     };
-    // preincrement
     Stock operator++(int) {
       Stock oldStock(*this);
       num_shares++;
@@ -33,7 +31,6 @@ class Stock {
       }
       return oldStock;
     }
-    // compound assginment
     Stock& operator+=(int num_shares) {
       this->num_shares+=num_shares;
       return *this; 
@@ -59,8 +56,7 @@ class Stock {
       return *this;
     }
 
-    // constructors
-    // default constructor
+    // constructor
     explicit Stock(std::string name = "----",
         int num_shares = 0,
         double price = 0.0,
@@ -71,13 +67,9 @@ class Stock {
         double yearly_rate = 0.0,
         double general_rate = 0.0,
         double dividend = 0.0);
-    // copy constructor
     Stock(const Stock&);
-    // move constructor
     Stock(Stock&&);
-    // assignment operator	
     Stock& operator=(const Stock&);
-    // assignment operator (move version)
     Stock& operator=(Stock&&);
 
     // print
@@ -149,6 +141,7 @@ class Stock {
     };
   
   private:
+    // member data
     std::string name;
     int num_shares;
     double price;
@@ -171,53 +164,53 @@ Stock::Stock(std::string name,
     double three_month_rate,
     double yearly_rate,
     double wholeRate,
-    double dividend) :
-      name{name},
-      num_shares{num_shares},
-      price{price},
-      daily_rate{daily_rate},
-      weekly_rate{weekly_rate},
-      monthly_rate{monthly_rate},
-      three_month_rate{three_month_rate},
-      yearly_rate{yearly_rate},
-      general_rate{wholeRate},
-      dividend{dividend} {};
+    double dividend)
+        : name{name},
+        num_shares{num_shares},
+        price{price},
+        daily_rate{daily_rate},
+        weekly_rate{weekly_rate},
+        monthly_rate{monthly_rate},
+        three_month_rate{three_month_rate},
+        yearly_rate{yearly_rate},
+        general_rate{wholeRate},
+        dividend{dividend} {};
 
 // copy constructor
-Stock::Stock(const Stock& stock) :
-  name{stock.name},
-  num_shares{stock.num_shares},
-  price{stock.price},
-  daily_rate{stock.daily_rate},
-  weekly_rate{stock.weekly_rate},
-  monthly_rate{stock.monthly_rate},
-  three_month_rate{stock.three_month_rate},
-  yearly_rate{stock.yearly_rate},
-  general_rate{stock.general_rate},
-  dividend{stock.dividend} {};
+Stock::Stock(const Stock& stock)
+    : name{stock.name},
+    num_shares{stock.num_shares},
+    price{stock.price},
+    daily_rate{stock.daily_rate},
+    weekly_rate{stock.weekly_rate},
+    monthly_rate{stock.monthly_rate},
+    three_month_rate{stock.three_month_rate},
+    yearly_rate{stock.yearly_rate},
+    general_rate{stock.general_rate},
+    dividend{stock.dividend} {};
 
 // move constructor
-Stock::Stock(Stock&& stock) :
-  name{std::move(stock.name)},
-  num_shares{std::move(stock.num_shares)},
-  price{std::move(stock.price)},
-  daily_rate{std::move(stock.daily_rate)},
-  weekly_rate{std::move(stock.weekly_rate)},
-  monthly_rate{std::move(stock.monthly_rate)},
-  three_month_rate{std::move(stock.three_month_rate)},
-  yearly_rate{std::move(stock.yearly_rate)},
-  general_rate{std::move(stock.general_rate)},
-  dividend{std::move(stock.dividend)} {
-    stock.name = "----";
-    stock.num_shares = 0;
-    stock.price = 0.0;
-    stock.daily_rate = 0.0;
-    stock.weekly_rate = 0.0;
-    stock.monthly_rate = 0.0;
-    stock.three_month_rate = 0.0;
-    stock.yearly_rate = 0.0;
-    stock.general_rate = 0.0;
-    stock.dividend = 0.0;
+Stock::Stock(Stock&& stock)
+    : name{std::move(stock.name)},
+    num_shares{std::move(stock.num_shares)},
+    price{std::move(stock.price)},
+    daily_rate{std::move(stock.daily_rate)},
+    weekly_rate{std::move(stock.weekly_rate)},
+    monthly_rate{std::move(stock.monthly_rate)},
+    three_month_rate{std::move(stock.three_month_rate)},
+    yearly_rate{std::move(stock.yearly_rate)},
+    general_rate{std::move(stock.general_rate)},
+    dividend{std::move(stock.dividend)} {
+      stock.name = "----";
+      stock.num_shares = 0;
+      stock.price = 0.0;
+      stock.daily_rate = 0.0;
+      stock.weekly_rate = 0.0;
+      stock.monthly_rate = 0.0;
+      stock.three_month_rate = 0.0;
+      stock.yearly_rate = 0.0;
+      stock.general_rate = 0.0;
+      stock.dividend = 0.0;
 };
 
 // assignment operator
