@@ -14,5 +14,20 @@ int main() {
   stocks::Stock f("DIS", 2, 103.0, -0.36, -1.64, -2.08, -7.9, -6.66, 93.04, 1.4);
   stocks::Stock g("INTC", 10, 51.25, 0.57, -1.18, 11.86, 14.28, 48.94, 182.13);
   stocks::Stock h("KO", 8, 43.54, -0.48, -3.12, -3.61, -4.93, 6.9, 31.97, 2.2);
+  
+  stocks::Portfolio z;
+  z.add_stock(a);
+  z.add_stock(b);
+  z.add_stock(c);
+  z.add_stock(d);
+  z.add_cash(300);
+  z.print();
+
+  stocks::Stock i(a);
+  i+=7;
+
+  z.sell_stock(i); 
+  z.print();
+  
   return 0;
 }
